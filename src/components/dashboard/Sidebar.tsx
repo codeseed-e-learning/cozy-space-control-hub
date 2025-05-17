@@ -18,6 +18,8 @@ import { cn } from "@/lib/utils";
 interface SidebarProps {
   isMobile: boolean;
   toggleMobileSidebar: () => void;
+  collapsed: boolean;
+  toggleSidebar: () => void;
 }
 
 const navItems = [
@@ -53,23 +55,19 @@ const navItems = [
   },
 ];
 
-export function Sidebar({ isMobile, toggleMobileSidebar }: SidebarProps) {
-  const [collapsed, setCollapsed] = useState(false);
+export function Sidebar({ isMobile, toggleMobileSidebar, collapsed, toggleSidebar }: SidebarProps) {
   const location = useLocation();
-
-  const toggleSidebar = () => {
-    if (!isMobile) {
-      setCollapsed(!collapsed);
-    }
-  };
 
   return (
     <aside
       className={cn(
         "h-screen bg-sidebar fixed left-0 top-0 z-30 flex flex-col border-r transition-all duration-300",
         collapsed ? "w-20" : "w-64",
-        isMobile && (collapsed ? "-translate-x-full" : "translate-x-0")
+        isMobile && "transform"
       )}
+      style={{
+        transform: isMobile ? (collapsed ? "translateX(-100%)" : "translateX(0)") : "none"
+      }}
     >
       <div className="flex items-center justify-between h-16 px-4 border-b">
         {!collapsed && (

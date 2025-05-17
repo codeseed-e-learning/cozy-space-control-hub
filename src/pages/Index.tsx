@@ -5,11 +5,14 @@ import { Button } from "@/components/ui/button";
 
 const Index = () => {
   const navigate = useNavigate();
+  const isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
 
   useEffect(() => {
-    // Uncomment the next line to automatically redirect to the dashboard
-    // navigate('/dashboard');
-  }, [navigate]);
+    // Auto redirect to dashboard if already logged in
+    if (isLoggedIn) {
+      navigate('/dashboard');
+    }
+  }, [isLoggedIn, navigate]);
 
   return (
     <div className="min-h-screen flex flex-col items-center justify-center bg-gradient-to-br from-sky-50 to-blue-100">
@@ -21,18 +24,18 @@ const Index = () => {
         <div className="flex flex-wrap justify-center gap-4">
           <Button 
             size="lg"
-            onClick={() => navigate('/dashboard')}
+            onClick={() => navigate('/login')}
             className="text-lg"
           >
-            Go to Dashboard
+            Login
           </Button>
           <Button 
             size="lg" 
             variant="outline" 
-            onClick={() => navigate('/orders')}
+            onClick={() => navigate('/register')}
             className="text-lg"
           >
-            View Orders
+            Register
           </Button>
         </div>
         <div className="pt-12 text-sm text-muted-foreground">

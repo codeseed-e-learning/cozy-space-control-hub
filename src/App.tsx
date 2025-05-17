@@ -3,7 +3,7 @@ import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import DashboardLayout from "./components/dashboard/DashboardLayout";
 import Index from "./pages/Index";
 import NotFound from "./pages/NotFound";
@@ -13,6 +13,8 @@ import OrderHistory from "./pages/OrderHistory";
 import Profile from "./pages/Profile";
 import AddNewRoom from "./pages/AddNewRoom";
 import AddNewProperty from "./pages/AddNewProperty";
+import Login from "./pages/Login";
+import Register from "./pages/Register";
 
 const queryClient = new QueryClient();
 
@@ -24,8 +26,10 @@ const App = () => (
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Index />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
           
-          {/* Dashboard Routes */}
+          {/* Dashboard Routes - Protected by authentication check in DashboardLayout */}
           <Route element={<DashboardLayout />}>
             <Route path="/dashboard" element={<Dashboard />} />
             <Route path="/orders" element={<Orders />} />
